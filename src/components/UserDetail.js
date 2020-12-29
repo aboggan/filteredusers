@@ -5,7 +5,12 @@ function UserDetail(props){
    
     
         return (
-            <div  id={props.name}  className="border pr-1 d-flex align-items-center justify-content-between">
+            <div  id={props.name}  className="border 
+                                                border-top-0
+                                                pr-1 
+                                                d-flex 
+                                                align-items-center 
+                                                justify-content-between">
               
                     <img src={props.src} alt={props.name} /> {props.name} {' ' }{props.last} 
                 

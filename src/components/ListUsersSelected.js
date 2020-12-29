@@ -13,6 +13,7 @@ const List = (props) => {
 
   return (
     <div>
+      Users selected: {users.length}
       {users}
     </div>
   );

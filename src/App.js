@@ -16,7 +16,7 @@ class App extends Component {
 
   componentDidMount(){
     //const apiUrl = `https://randomuser.me/api/?results=10&seed=a30fc14314ff6e77`;
-    const apiUrl = `https://randomuser.me/api/?results=100`;
+    const apiUrl = `https://randomuser.me/api/?results=10`;
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -81,7 +81,7 @@ class App extends Component {
                 user.name.last.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase())
     })
     return (
-        <div className="container">
+        <div className="container p-5">
         <div className="row">
             <div className="col-md-6">
               <Searchbox handleInput= {this.handleInput} handleOnBlur={this.handleOnBlur}/>
@@ -92,7 +92,6 @@ class App extends Component {
               </div>
             </div>
             <div className="col-md-6">
-              Users selected:
               <ListUsersSelected usersSelected={this.state.usersSelected} handleClick={this.removeUser} />
 
             </div>

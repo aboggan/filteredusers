@@ -20,10 +20,14 @@ const List = (props) => {
                         handleClick={props.handleClick}
                         isSelected={isSelected}/>
   }) 
-
   return (
     <div>
-      {users}
+      {users.length > 0 ? (users):(
+        "no data found :("
+      )}
+
+
+
     </div>
   );
 };
