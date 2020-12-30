@@ -46,9 +46,10 @@ class App extends Component {
   handleKeyUp = (e) => {
 
     if(e.keyCode === 13){
-      let userToadd = { target: {id : this.state.usersFiltered[0].login.uuid} }
-
-      this.handleClick(userToadd)
+      if(this.state.usersFiltered.length > 0){
+        let userToadd = { target: {id : this.state.usersFiltered[0].login.uuid} }
+        this.handleClick(userToadd)
+      }
     }
   }
 
