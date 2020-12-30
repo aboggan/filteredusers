@@ -11,6 +11,7 @@ class App extends Component {
           users: [],
           searchTerm: '',
           usersSelected: [],
+          usersFiltered: []
       }
   }
 
@@ -25,17 +26,33 @@ class App extends Component {
   }
 
   handleInput = (e) => {
+      
       if(e.target.value !== ""){
         document.getElementById("userList").classList.remove("d-none")
         this.setState({ searchTerm: e.target.value });
+        let filteredUsers = this.state.users.filter((user)=>{
+          return user.name.first.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase()) || 
+                  user.name.last.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase())
+        })
+        this.setState({usersFiltered: filteredUsers})
       }else {
-        
-    document.getElementById("userList").classList.add("d-none");
+        document.getElementById("userList").classList.add("d-none");
       }
+
+      
 
   }
 
-  handleClick = (e, name) => {
+  handleKeyUp = (e) => {
+
+    if(e.keyCode === 13){
+      let userToadd = { target: {id : this.state.usersFiltered[0].login.uuid} }
+
+      this.handleClick(userToadd)
+    }
+  }
+
+  handleClick = (e) => {
     let uid = e.target.id
     let userSelected;
     if(this.state.usersSelected) {
@@ -54,11 +71,6 @@ class App extends Component {
     this.setState({usersSelected:usersSelected})
 
   }
-
-  handleOnBlur = (e) => {
-    console.log("ola")
-  }
-
   removeUser = (e) => {
     let uid  = e.target.id;
     let userToRemove = this.state.usersSelected.find((user)=>{
@@ -76,18 +88,16 @@ class App extends Component {
   }
 
   render() {
-    let filteredUsers = this.state.users.filter((user)=>{
-        return user.name.first.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase()) || 
-                user.name.last.toLowerCase().includes(this.state.searchTerm.toLocaleLowerCase())
-    })
+    
     return (
         <div className="container p-5">
         <div className="row">
             <div className="col-md-6">
-              <Searchbox handleInput= {this.handleInput} handleOnBlur={this.handleOnBlur}/>
+              <Searchbox handleInput= {this.handleInput} handleOnBlur={this.handleOnBlur} 
+              handleKeyUp={this.handleKeyUp}/>
               <div className="d-none" id="userList">
-                <List users={filteredUsers} handleClick={this.handleClick} 
-                usersSelected = {this.state.usersSelected}   />
+                <List users={this.state.usersFiltered} handleClick={this.handleClick} 
+                usersSelected = {this.state.usersSelected} />
 
               </div>
             </div>
